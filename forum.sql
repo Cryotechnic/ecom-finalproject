@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2021 at 08:49 PM
+-- Generation Time: Nov 12, 2021 at 08:51 PM
 -- Server version: 10.4.21-MariaDB
 -- PHP Version: 8.0.10
 
@@ -34,6 +34,7 @@ CREATE TABLE `post` (
   `topic_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `likes` int(11) NOT NULL,
+  `pinned` tinyint(1) NOT NULL,
   `created_at` date NOT NULL,
   `updated_at` date NOT NULL,
   `flagged` tinyint(1) NOT NULL,
