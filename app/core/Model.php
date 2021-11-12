@@ -14,7 +14,7 @@ class Model {
         $username = 'root';
         $password = '';
         $host = 'localhost';
-        $dbname = 'assignment2';
+        $dbname = 'forum';
 
         if(self::$_connection == null) {
             self::$_connection = new \PDO("mysql:host=$host;dbname=$dbname", $username, $password);
