@@ -132,7 +132,6 @@ class User extends \app\core\Model
         $stmt->execute();
     }
 
-
     // delete
     public function delete($user_id)
     {
