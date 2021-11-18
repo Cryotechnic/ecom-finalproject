@@ -24,8 +24,8 @@
         if(isset($_SESSION['username'])){
             if($user->type == 'admin'){
                 echo '<a href="'.BASE.'/Admin/index">Admin Panel</a><br><br>';
+                echo '<a href="'.BASE.'/Main/createTopic">Create Topic</a><br><br>';
             }
-            echo '<a href="'.BASE.'/Main/createTopic">Create Topic</a><br><br>';
         }
 ?>
 
