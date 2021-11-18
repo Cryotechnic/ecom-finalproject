@@ -33,7 +33,7 @@ class Main extends \app\core\Controller
                 $_SESSION['user_id'] = $user->user_id;
                 $_SESSION['username'] = $user->username;
                 $_SESSION['logged_in'] = true;
-                header('Location: /Secure/Create');
+                header('Location: /Main/index');
             }
         } else { 
             $this->view('Main/register');
@@ -53,14 +53,8 @@ class Main extends \app\core\Controller
                 $user = new \app\models\User();
                 $user = $user->get($_SESSION['username']);
                 // redirect if user has 2fa enabled
-                if($user->getAuthToken() == ""){
-                    // if user has no auth token, redirect to index
-                    $_SESSION['logged_in'] = true;
-                    header('Location: /Secure/index');
-                } else {
-                    // if user has auth token, redirect to 2fa
-                    header('Location: /TwoFactorAuth/index');
-                }
+                $_SESSION['logged_in'] = true;
+                header('Location: /Main/index');
             } else {
                 // if username or password is incorrect, redirect to login and display error
                 $this->view('Main/login', 'Wrong username or password combination!');
@@ -71,48 +65,10 @@ class Main extends \app\core\Controller
         }
     }
 
-    // Makes QR Code for 2FA
-    public function makeQRCode() {
-        $data = $_GET['data'];
-        \QRcode::png($data);
-    }
 
-    // Sets up 2FA for the user by generating a random token and saving it to the database
-    #[\app\filters\Login]
-    public function setup2fa(){
-        if(isset($_POST['action'])){
-            $currentcode = $_POST['currentCode'];
-            if(\app\core\TokenAuth6238::verify(
-                $_SESSION['secretkey'],$currentcode)){
-                //the user has verified their proper 2-factor authentication setup
-                $user = new \App\models\User();
-                $user = $user->get($_SESSION['username']);
-                $user->auth_token = $_SESSION['secretkey'];
-                $user->update2fa();
-                header('location:'.BASE.'/Secure/Profile/index');
-            }else{
-                header('location:'.BASE.'/Main/setup2fa?error=token not verified!'); //reload
-            }
-        }else{
-            // generate a random token
-            $secretkey = \app\core\TokenAuth6238::generateRandomClue();
-            $_SESSION['secretkey'] = $secretkey;
-            $url = \App\core\TokenAuth6238::getLocalCodeUrl(
-                $_SESSION['username'],
-                'localhost',
-                $secretkey,
-                'Social Media Application');
-            $this->view('Main/setup2fa', $url);
-        }
-    }
-
-    // Disables 2FA for the user by removing the token from the database
-    #[\app\filters\Login]
-    public function disable2fa() {
-        $user = new \App\models\User();
-        $user = $user->get($_SESSION['username']);
-        $user->auth_token = "";
-        $user->update2fa();
-        header('location:'.BASE.'/Secure/Profile/index');
+    // Logs out the user by destroying the session variables
+    public function logout() {
+        session_destroy();
+        header('Location: /Main/index');
     }
 }
