@@ -33,6 +33,7 @@ class Main extends \app\core\Controller
                 $_SESSION['user_id'] = $user->user_id;
                 $_SESSION['username'] = $user->username;
                 $_SESSION['logged_in'] = true;
+                $_SESSION['user'] = $user;
                 header('Location: /Main/index');
             }
         } else { 
@@ -54,6 +55,7 @@ class Main extends \app\core\Controller
                 $user = $user->get($_SESSION['username']);
                 // redirect if user has 2fa enabled
                 $_SESSION['logged_in'] = true;
+                $_SESSION['user'] = $user;
                 header('Location: /Main/index');
             } else {
                 // if username or password is incorrect, redirect to login and display error
