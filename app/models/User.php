@@ -13,10 +13,88 @@ class User extends \app\core\Model
     public $password;
     public $password_hash;
     public $auth_token;
+    public $email;
+    public $type;
+    public $banned;
+    public $location;
+    public $dob;
+    public $bio;
 
     public function __construct()
     {
         parent::__construct();
+    }
+
+    // get email
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    // set email
+    public function setEmail($email)
+    {
+        $this->email = $email;
+    }
+
+    // get type
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    // set type
+    public function setType($type)
+    {
+        $this->type = $type;
+    }
+
+    // get banned
+    public function getBanned()
+    {
+        return $this->banned;
+    }
+
+    // set banned
+    public function setBanned($banned)
+    {
+        $this->banned = $banned;
+    }
+
+    // get location
+    public function getLocation()
+    {
+        return $this->location;
+    }
+
+    // set location
+    public function setLocation($location)
+    {
+        $this->location = $location;
+    }
+
+    // get dob
+    public function getDob()
+    {
+        return $this->dob;
+    }
+
+    // set dob
+    public function setDob($dob)
+    {
+        $this->dob = $dob;
+    }
+
+    // get bio
+    public function getBio()
+    {
+        return $this->bio;
+    }
+
+    // set bio
+    public function setBio($bio)
+    {
+        $this->bio = $bio;
     }
 
     // set user_id
