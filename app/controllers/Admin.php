@@ -14,4 +14,28 @@ class Admin extends \app\core\Controller
         $this->view('Admin/index');
     }
 
+    public function createTopic(){
+        if(isset($_POST['action'])){
+            if(isset($_POST['title']) && isset($_POST['description'])){
+                $topic = new \app\models\Topic();
+                $topic->name = $_POST['title'];
+                $topic->description = $_POST['description'];
+                $topic->insert();
+                header('Location: /Main/index');
+            } else {
+                $this->view('Admin/createTopic', 'Please fill in all fields');
+            }
+        } else {
+            $this->view('Admin/createTopic');
+        }
+    }
+
+    // delete a topic
+    public function deleteTopic($topicId){
+        $topic = new \app\models\Topic();
+        $topic = $topic->getByTopicId($topicId);
+        $topic->delete($topic_id);
+        header('Location: /Main/index');
+    }
+
 }

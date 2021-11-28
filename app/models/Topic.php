@@ -73,35 +73,58 @@ class Topic extends \app\core\Model
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':topic_id', $topic_id);
         $stmt->execute();
-        $stnt0->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Topic');
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Topic');
         return $stmt->fetch();
     }
 
     // CRUD functions
     public function insert() {
-        $sql = "INSERT INTO topic (name, post_count, description) VALUES (:name, :post_count, :description)";
+        $sql = "INSERT INTO topic (name, description) VALUES (:name, :description)";
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':post_count', $this->post_count);
         $stmt->bindParam(':description', $this->description);
         $stmt->execute();
         return self::$_connection->lastInsertId();
     }
 
     public function update() {
-        $sql = "UPDATE topic SET name = :name, post_count = :post_count, description = :description WHERE topic_id = :topic_id";
+        $sql = "UPDATE topic SET name = :name, description = :description WHERE topic_id = :topic_id";
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':post_count', $this->post_count);
         $stmt->bindParam(':description', $this->description);
         $stmt->bindParam(':topic_id', $this->topic_id);
         $stmt->execute();
     }
 
-    public function delete($topic_id) {
+// delete topic
+    public function deleteFromId($topic_id) {
         $sql = "DELETE FROM topic WHERE topic_id = :topic_id";
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':topic_id', $topic_id);
         $stmt->execute();
     }
+
+    public function delete(){
+        $sql = "DELETE FROM topic WHERE topic_id = :topic_id";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':topic_id', $this->topic_id);
+        $stmt->execute();
+    }
+
+    // increment post count
+    public function incrementPostCount($topic_id) {
+        $sql = "UPDATE topic SET post_count = post_count + 1 WHERE topic_id = :topic_id";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':topic_id', $topic_id);
+        $stmt->execute();
+    }
+
+    // decrement post count
+    public function decrementPostCount($topic_id) {
+        $sql = "UPDATE topic SET post_count = post_count - 1 WHERE topic_id = :topic_id";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':topic_id', $topic_id);
+        $stmt->execute();
+    }
+
 }
