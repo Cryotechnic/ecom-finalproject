@@ -15,7 +15,7 @@
 	update
 	delete
 
-crud posts
+# crud posts - ron 
 	pin
 	create
 	update
