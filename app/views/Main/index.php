@@ -8,7 +8,7 @@
                 $user = new \app\models\User();
                 $user = $user->get($_SESSION['username']);
                 if(isset($_SESSION['user_id'])){
-                    echo 'Welcome, ' . $_SESSION['username'] . '!';
+                    echo 'Welcome, ' . $_SESSION['username'] . '! <br>';
                     echo '<a href="'.BASE.'/Main/logout">Logout</a>';
                 } 
             } else {
@@ -25,6 +25,7 @@
             if($user->type == 'admin'){
                 echo '<a href="'.BASE.'/Admin/index">Admin Panel</a><br><br>';
                 echo '<a href="'.BASE.'/Admin/createTopic">Create Topic</a><br><br>';
+                echo '<a href="'.BASE.'/Admin/createPost">Create Post</a><br><br>';
             }
         }
 ?>

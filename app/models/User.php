@@ -12,7 +12,6 @@ class User extends \app\core\Model
     public $username;
     public $password;
     public $password_hash;
-    public $auth_token;
     public $email;
     public $type;
     public $banned;
@@ -133,18 +132,6 @@ class User extends \app\core\Model
         return $this->password_hash;
     }
 
-    // set auth_token
-    public function setAuthToken($auth_token)
-    {
-        $this->auth_token = $auth_token;
-    }
-
-    // get auth_token
-    public function getAuthToken()
-    {
-        return $this->auth_token;
-    }
-
     public function getAll()
     {
         $sql = "SELECT * FROM user";
@@ -191,25 +178,13 @@ class User extends \app\core\Model
     public function update()
     {
         $this->password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-        $sql = "UPDATE user SET username = :username, password_hash = :password_hash, auth_token = :auth_token WHERE user_id = :user_id";
+        $sql = "UPDATE user SET username = :username, password_hash = :password_hash WHERE user_id = :user_id";
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':password_hash', $this->password_hash);
-        $stmt->bindParam(':auth_token', $this->auth_token);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->execute();
     }
-
-    // update 2fa
-    public function update2fa()
-    {
-        $sql = "UPDATE user SET auth_token = :auth_token WHERE user_id = :user_id";
-        $stmt = self::$_connection->prepare($sql);
-        $stmt->bindParam(':auth_token', $this->auth_token);
-        $stmt->bindParam(':user_id', $this->user_id);
-        $stmt->execute();
-    }
-
     // delete
     public function delete($user_id)
     {
