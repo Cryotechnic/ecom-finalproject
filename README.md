@@ -1,16 +1,16 @@
 # assignment2-ecom
 
 ## Tasks will be divided as follows, and will be updated periodically
-Models - ron
+# Models - ron
 	user
 	post
 	topic
 	reply
-Adapt login/2fa/register - ben
+# Adapt login/2fa/register - ben
 	register
 	login
 	2fa
-crud topics - both
+# crud topics - ben
 	create
 	update
 	delete
