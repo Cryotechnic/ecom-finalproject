@@ -67,22 +67,6 @@ class Main extends \app\core\Controller
         }
     }
 
-    public function createTopic(){
-        if(isset($_POST['action'])){
-            if(isset($_POST['title']) && isset($_POST['content'])){
-                $topic = new \app\models\Topic();
-                $topic->title = $_POST['title'];
-                $topic->description = $_POST['description'];
-                $topic->insert();
-                header('Location: /Main/index');
-            } else {
-                $this->view('Main/createTopic', 'Please fill in all fields');
-            }
-        } else {
-            $this->view('Main/createTopic');
-        }
-    }
-
     public function topic($topic_id){
         $this->view('Main/topic', $topic_id);
     }

@@ -25,7 +25,6 @@
             if($user->type == 'admin'){
                 echo '<a href="'.BASE.'/Admin/index">Admin Panel</a><br><br>';
                 echo '<a href="'.BASE.'/Admin/createTopic">Create Topic</a><br><br>';
-                echo '<a href="'.BASE.'/Admin/createPost">Create Post</a><br><br>';
             }
         }
 ?>

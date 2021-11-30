@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Create a new topic</title>
+		<title>Create a new Post</title>
 	</head>
 	<body>
 	<?php 
@@ -9,10 +9,10 @@
 			echo "<br>";
 		}
 	?>
-		Create a new topic:
+		Create a new Post:
 		<form action='' method='post'>
-			Title: <input type='text' name='title' /><br>
-            <textarea name='description' placeholder='Description'></textarea><br>
+			Title of your post: <input type='text' name='title' /><br>
+            <textarea name='description' placeholder='Content'></textarea><br>
 			<input type='submit' name='action' value='Create' />
 		</form>
 	</body>

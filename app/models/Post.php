@@ -11,6 +11,7 @@ class Post extends \app\core\Model
     public $post_id;
     public $user_id;
     public $topic_id;
+    public $title;
     public $content;
     public $likes;
     public $pinned;
@@ -25,6 +26,16 @@ class Post extends \app\core\Model
     }   
 
     // Getters and setters
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    }
+
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
     public function getPost_id() {
         return $this->post_id;
     }
@@ -131,6 +142,7 @@ class Post extends \app\core\Model
         return $stmt->fetchAll();
     }
 
+// get all from topic id
     public function getByTopicId($topic_id) {
         $sql = "SELECT * FROM post WHERE topic_id = :topic_id";
         $stmt = self::$_connection->prepare($sql);
@@ -141,11 +153,13 @@ class Post extends \app\core\Model
     }
 
     // CRUD functions
+    // insert
     public function insert() {
-        $sql = "INSERT INTO post (user_id, topic_id, content, likes, pinned, created_at, updated_at, flagged, locked) VALUES (:user_id, :topic_id, :content, :likes, :pinned, :created_at, :updated_at, :flagged, :locked)";
+        $sql = "INSERT INTO post (user_id, topic_id, title, content, likes, pinned, created_at, updated_at, flagged, locked) VALUES (:user_id, :topic_id, :title, :content, :likes, :pinned, :created_at, :updated_at, :flagged, :locked)";
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->bindParam(':topic_id', $this->topic_id);
+        $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':content', $this->content);
         $stmt->bindParam(':likes', $this->likes);
         $stmt->bindParam(':pinned', $this->pinned);
@@ -156,9 +170,13 @@ class Post extends \app\core\Model
         $stmt->execute();
     }
 
+    // update
     public function update() {
-        $sql = "UPDATE post SET content = :content, likes = :likes, pinned = :pinned, created_at = :created_at, updated_at = :updated_at, flagged = :flagged, locked = :locked WHERE post_id = :post_id";
+        $sql = "UPDATE post SET user_id = :user_id, topic_id = :topic_id, title = :title, content = :content, likes = :likes, pinned = :pinned, created_at = :created_at, updated_at = :updated_at, flagged = :flagged, locked = :locked WHERE post_id = :post_id";
         $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->bindParam(':topic_id', $this->topic_id);
+        $stmt->bindParam(':title', $this->title);
         $stmt->bindParam(':content', $this->content);
         $stmt->bindParam(':likes', $this->likes);
         $stmt->bindParam(':pinned', $this->pinned);

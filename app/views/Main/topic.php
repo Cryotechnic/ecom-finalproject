@@ -7,30 +7,23 @@
     <body>
         <h1>Topic</h1>
         <?php
-            $posts = new \app\models\Post();
-            $posts->getByTopicId($data);
-            var_dump($posts);
-            if(isset($_SESSION['username'])){
-                if($user->type == 'admin'){
-                    echo '<a href="'.BASE.'/Admin/Topic/'.$topic['topic_id'].'lockTopic/'.$topic['post_id'].'">Lock Topic</a><br>';
-                }
+            // display create post form if user is logged in
+            if(isset($_SESSION['user_id'])) {
+                echo '<a href="'.BASE.'/Secure/createPost/'.$data.'">Create a post</a><br>';
             }
+            $posts = new \app\models\Post();
+            $posts = $posts->getByTopicId($data);
         //display all topics
         foreach($posts as $post){
-            echo "<div style='border:1px solid black; width:80%; white-space: nowrap;'>";
+            $user = new \app\models\User();
+            $user = $user->getById($post->user_id);
+            echo "<div style='border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;'>";
             echo "<div style='float:left;'>";
             echo "<img src=''>";
             echo "</div>";
-            echo " <h2>{{$topic->getTitle()}}</h2> <p>{{$post->getContent()}}</p> <p>{{$post->getCreated_at()}}</p> <p>{{$post->getUpdated_at()}}</p> <p>Profile</p>";
-            echo '<a href="'.BASE.'/Main/Topic/likePost/'.$post['post_id'].'">like post</a><br>';
+            echo '<h2><a href="'.BASE.'/Main/Post/'.$post->post_id.'">' . $post->getTitle() . '</a><br></h2>';
+            echo "<p>Created by: $user->username</p> <p>Created at: {$post->getCreated_at()}</p> <p>Updated at: {$post->getUpdated_at()}</p>";
             echo "</div>";    
-            if(isset($_SESSION['username'])){
-                if($user->type == 'admin'){
-                    echo '<a href="'.BASE.'/Admin/Topic/'.$topic['topic_id'].'deletePost/'.$post['post_id'].'">delete post</a><br>';
-                    echo '<a href="'.BASE.'/Admin/Topic/'.$topic['topic_id'].'banUser/'.$users['user_id'].'">ban user post</a><br>';
-                    echo '<a href="'.BASE.'/Admin/Topic/'.$topic['topic_id'].'pinPost/'.$post['post_id'].'">pin post</a><br>';
-                }
-            }
             echo "</div><br>";
         }
         ?>
