@@ -6,7 +6,7 @@ namespace App\Models;
 *  
 *  This code is/will be published on GitHub. The license is GPLv3. Please do not remove this comment
 */ 
-class Post extends app\core\Model
+class Post extends \app\core\Model
 {
     public $post_id;
     public $user_id;
@@ -19,88 +19,89 @@ class Post extends app\core\Model
     public $flagged;
     public $locked;
 
-    public function __construct() {
+    public function __construct()
+    {
         parent::__construct();
-    }
+    }   
 
     // Getters and setters
-    public getPost_id() {
+    public function getPost_id() {
         return $this->post_id;
     }
     
-    public getUser_id() {
+    public function getUser_id() {
         return $this->user_id;
     }
 
-    public getTopic_id() {
+    public function getTopic_id() {
         return $this->topic_id;
     }
 
-    public getContent() {
+    public function getContent() {
         return $this->content;
     }
 
-    public getLikes() {
+    public function getLikes() {
         return $this->likes;
     }
 
-    public getPinned() {
+    public function getPinned() {
         return $this->pinned;
     }
 
-    public getCreated_at() {
+    public function getCreated_at() {
         return $this->created_at;
     }
 
-    public getUpdated_at() {
+    public function getUpdated_at() {
         return $this->updated_at;
     }
 
-    public getFlagged() {
+    public function getFlagged() {
         return $this->flagged;
     }
 
-    public getLocked() {
+    public function getLocked() {
         return $this->locked;
     }
 
-    public setPost_id($post_id) {
+    public function setPost_id($post_id) {
         $this->post_id = $post_id;
     }
 
-    public setUser_id($user_id) {
+    public function setUser_id($user_id) {
         $this->user_id = $user_id;
     }
 
-    public setTopic_id($topic_id) {
+    public function setTopic_id($topic_id) {
         $this->topic_id = $topic_id;
     }
 
-    public setContent($content) {
+    public function setContent($content) {
         $this->content = $content;
     }
 
-    public setLikes($likes) {
+    public function setLikes($likes) {
         $this->likes = $likes;
     }
 
-    public setPinned($pinned) {
+    public function setPinned($pinned) {
         $this->pinned = $pinned;
     }
 
-    public setCreated_at($created_at) {
+    public function setCreated_at($created_at) {
         $this->created_at = $created_at;
     }
 
-    public setUpdated_at($updated_at) {
+    public function setUpdated_at($updated_at) {
         $this->updated_at = $updated_at;
     }
 
-    public setFlagged($flagged) {
+    public function setFlagged($flagged) {
         $this->flagged = $flagged;
     }
 
-    public setLocked($locked) {
+    public function setLocked($locked) {
         $this->locked = $locked;
     }
 
