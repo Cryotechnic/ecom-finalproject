@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.1
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 12, 2021 at 08:51 PM
--- Server version: 10.4.21-MariaDB
--- PHP Version: 8.0.10
+-- Generation Time: Nov 30, 2021 at 08:22 PM
+-- Server version: 10.4.18-MariaDB
+-- PHP Version: 8.0.5
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -27,11 +27,11 @@ SET time_zone = "+00:00";
 -- Table structure for table `post`
 --
 
-DROP TABLE IF EXISTS `post`;
 CREATE TABLE `post` (
   `post_id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `topic_id` int(11) NOT NULL,
+  `title` varchar(80) NOT NULL,
   `content` text NOT NULL,
   `likes` int(11) NOT NULL,
   `pinned` tinyint(1) NOT NULL,
@@ -47,7 +47,6 @@ CREATE TABLE `post` (
 -- Table structure for table `reply`
 --
 
-DROP TABLE IF EXISTS `reply`;
 CREATE TABLE `reply` (
   `reply_id` int(11) NOT NULL,
   `post_id` int(11) NOT NULL,
@@ -64,7 +63,6 @@ CREATE TABLE `reply` (
 -- Table structure for table `topic`
 --
 
-DROP TABLE IF EXISTS `topic`;
 CREATE TABLE `topic` (
   `topic_id` int(11) NOT NULL,
   `name` varchar(50) NOT NULL,
@@ -78,13 +76,12 @@ CREATE TABLE `topic` (
 -- Table structure for table `user`
 --
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `user_id` int(11) NOT NULL,
   `username` varchar(20) NOT NULL,
   `password_hash` varchar(256) NOT NULL,
   `email` varchar(64) NOT NULL,
-  `type` varchar(5) NOT NULL,
+  `type` varchar(5) NOT NULL DEFAULT 'user',
   `banned` tinyint(1) NOT NULL,
   `location` varchar(32) NOT NULL,
   `dob` date NOT NULL,
