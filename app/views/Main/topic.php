@@ -7,12 +7,9 @@
     <body>
         <h1>Topic</h1>
         <?php
-            $topic = new \app\models\Topic();
-            $topic = $topic->getTopicId();
             $posts = new \app\models\Post();
-            $posts = $posts->getAllPosts();
-            $users = new \app\models\User();
-            $users = $users->getByTopicId($topic);
+            $posts->getByTopicId($data);
+            var_dump($posts);
             if(isset($_SESSION['username'])){
                 if($user->type == 'admin'){
                     echo '<a href="'.BASE.'/Admin/Topic/'.$topic['topic_id'].'lockTopic/'.$topic['post_id'].'">Lock Topic</a><br>';
