@@ -83,6 +83,11 @@ class Main extends \app\core\Controller
         }
     }
 
+    public function topic($topic_id){
+        $this->view('Main/topic', $topic_id);
+    }
+
+
 
     // Logs out the user by destroying the session variables
     public function logout() {

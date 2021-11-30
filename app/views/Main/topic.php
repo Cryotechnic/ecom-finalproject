@@ -18,7 +18,6 @@
                     echo '<a href="'.BASE.'/Admin/Topic/'.$topic['topic_id'].'lockTopic/'.$topic['post_id'].'">Lock Topic</a><br>';
                 }
             }
-            echo '<a href="/Main/Topic/addPost">Add post</a>'; // TODO: add link to topic
         //display all topics
         foreach($posts as $post){
             echo "<div style='border:1px solid black; width:80%; white-space: nowrap;'>";
