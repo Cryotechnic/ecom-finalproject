@@ -1,5 +1,5 @@
 <?php
-namespace App\Models;
+namespace app\models;
 /**
 *  Post model, used to store post data in database
 *  Authors: Benjamin Proulx (1973003), Ron Friedman (1926133), Vanier College 2021
