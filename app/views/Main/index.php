@@ -18,8 +18,7 @@
             }
         ?>
     </body>
-    <br>
-    <br>
+    <hr>
     <?php
         if(isset($_SESSION['username'])){
             if($user->type == 'admin'){
@@ -28,6 +27,9 @@
             }
         }
 ?>
+<a href="<?=BASE?>/Main/index">Home</a><br>
+<hr>
+<h1>Topics</h1>
 
 <?php
 $topics = new \app\models\Topic();

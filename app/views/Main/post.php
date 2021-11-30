@@ -1,8 +1,10 @@
 <html>
-	<head>
-		<title>Create a new Post</title>
-	</head>
-	<body>
+    <head>
+        <title>Topic</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
         <?php
             if(isset($_SESSION['username'])){
                 $user = new \app\models\User();
@@ -18,20 +20,17 @@
             }
         ?>
     </body>
-	<hr>
-	<body>
-	<?php 
-		if($data != null) {
-			echo $data;
-			echo "<br>";
-		}
-	?>
-		Create a new Post:
-		<form action='' method='post'>
-			Title of your post: <input type='text' name='title' /><br>
-            <textarea name='description' placeholder='Content'></textarea><br>
-			<input type='submit' name='action' value='Create' />
-		</form>
-	</body>
+    <hr>
+    <body>
+        <?php
+            $post = new \app\models\Post();
+            $post = $post->getByPostId($data);
+            $topic = new \app\models\Topic();
+            $topic = $topic->getByTopicId($post->topic_id);
+        ?>
+        <a href="<?=BASE?>/Main/index">Home</a> >
+        <a href="<?=BASE?>/Main/topic/<?=$topic->topic_id?>"><?= $topic->name ?></a> > 
+        <a href="<?=BASE?>/Main/post/<?=$post->post_id?>"><?= $post->title ?></a>
+        <hr>
+    </body>
 </html>
-

@@ -5,7 +5,36 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
-        <h1>Topic</h1>
+        <?php
+            if(isset($_SESSION['username'])){
+                $user = new \app\models\User();
+                $user = $user->get($_SESSION['username']);
+                if(isset($_SESSION['user_id'])){
+                    echo 'Welcome, ' . $_SESSION['username'] . '! <br>';
+                    echo '<a href="'.BASE.'/Main/logout">Logout</a>';
+                } 
+            } else {
+                echo 'Welcome to the forum, login or register for full functionality!<br>';
+                echo '<a href="'.BASE.'/Main/login">Login</a><br>';
+                echo '<a href="'.BASE.'/Main/register">Register</a>';
+            }
+        ?>
+    </body>
+    <hr>
+    <body>
+        <?php 
+            $topic = new \app\models\Topic();
+            $topic = $topic->getByTopicId($data);
+        ?>
+        <a href="<?=BASE?>/Main/index">Home</a> > 
+        <a href="<?=BASE?>/Main/topic/<?=$data?>"><?= $topic->name ?></a>
+        <hr>
+        <h1>Topic: 
+            <?php
+                echo $topic->name;
+            ?>
+        </h1>
+
         <?php
             // display create post form if user is logged in
             if(isset($_SESSION['user_id'])) {
