@@ -39,5 +39,26 @@ class Secure extends \app\core\Controller
         }
     }
 
+    public function deletePost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->delete($post_id);
+        header('Location: /Main/Topic/'.$post->topic_id);
+    }
 
+    public function editPost($post_id){
+        if(isset($_POST['action'])){
+            if(isset($_POST['title']) && isset($_POST['description'])){
+                $post = new \app\models\Post();
+                $post = $post->getByPostId($post_id);
+                $post->title = $_POST['title'];
+                $post->content = $_POST['description'];
+                $post->updated_at = date('Y-m-d H:i:s');
+                $post->update($post_id);
+                header('Location: /Main/Topic/'.$post->topic_id);
+            }
+        } else {
+            $this->view('Secure/editPost', $post_id);
+        }
+    }
 }

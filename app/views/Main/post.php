@@ -27,10 +27,45 @@
             $post = $post->getByPostId($data);
             $topic = new \app\models\Topic();
             $topic = $topic->getByTopicId($post->topic_id);
+            $author = new \app\models\User();
+            $author = $author->getById($post->user_id);
         ?>
         <a href="<?=BASE?>/Main/index">Home</a> >
         <a href="<?=BASE?>/Main/topic/<?=$topic->topic_id?>"><?= $topic->name ?></a> > 
         <a href="<?=BASE?>/Main/post/<?=$post->post_id?>"><?= $post->title ?></a>
         <hr>
+
+        <h1>Post: 
+            <?php
+                echo $post->title;
+            ?>
+        </h1>
+        <p>
+            Written by:
+            <?php
+                echo $author->username;
+                echo " on: " . $post->created_at;
+                if($post->created_at != $post->updated_at){
+                    echo '<br>Last updated: ' . $post->updated_at;
+                }
+                if(isset($_SESSION['user_id'])){
+                    $user = new \app\models\User();
+                    $user = $user->get($_SESSION['username']);
+                    if($user->type == 'admin' || $user->user_id == $post->user_id){
+                        echo '<br><a href="'.BASE.'/Secure/deletepost/'.$post->post_id.'">Delete</a>';
+                        if($user->user_id == $post->user_id){
+                            echo '<br><a href="'.BASE.'/Secure/editpost/'.$post->post_id.'">Edit</a>';
+                        }
+                    }
+                }
+            ?>
+            
+        </p>
+        <p>
+        <div style='border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;'>
+            <?php
+                echo $post->content;
+            ?>
+        </div>
     </body>
 </html>
