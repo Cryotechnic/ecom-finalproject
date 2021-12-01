@@ -4,9 +4,23 @@
 	</head>
 	<body>
         <?php
+        
+        $post = new \app\models\Post();
+		$post = $post->getByPostId($data);
+        $user = new \app\models\User();
+        $user = $user->get($_SESSION['username']);
+
+        if($post->user_id != $user->user_id){
+            echo "You are not allowed to edit this post<br>";
+            echo '<a href="'.BASE.'/Main/index">Go back home</a><br>';
+            return;   
+        }
+        
+        ?>
+
+        <?php
             if(isset($_SESSION['username'])){
-                $user = new \app\models\User();
-                $user = $user->get($_SESSION['username']);
+
                 if(isset($_SESSION['user_id'])){
                     echo 'Welcome, ' . $_SESSION['username'] . '! <br>';
                     echo '<a href="'.BASE.'/Main/logout">Logout</a>';
@@ -21,8 +35,7 @@
 	<hr>
 	<body>
 	<?php 
-		$post = new \app\models\Post();
-		$post = $post->getByPostId($data);
+
 	?>
 		Edit your post:
 		<form action='' method='post'>

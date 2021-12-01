@@ -67,5 +67,27 @@
                 echo $post->content;
             ?>
         </div>
+        <br>
+        <?php
+            $replies = new \app\models\Reply();
+            $replies = $replies->getByPostId($post->post_id);
+            foreach($replies as $reply){
+                $author = new \app\models\User();
+                $author = $author->getById($reply->user_id);
+                echo '<div style="border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;">';
+                echo '<p>Reply by: ' . $author->username . '</p>';
+                echo '<p>' . $reply->content . '</p>';
+                echo '</div>';
+            }
+        ?>
+            <?php 
+                if(isset($_SESSION['user_id']) && $post->locked == 0){
+                    echo '<a href="'.BASE.'/Secure/Reply/'.$post->post_id.'">Reply to this post</a>';
+                } else if($post->locked == 1){
+                    echo 'This post is locked and not accepting more replies at this time';
+                } else {
+                    echo 'You must be logged in to reply';
+                }
+            ?>
     </body>
 </html>

@@ -12,6 +12,7 @@ class Secure extends \app\core\Controller
 {
 
     public function index(){
+        echo "Secure";
         $this->view('Secure/index');
     }
 
@@ -58,6 +59,28 @@ class Secure extends \app\core\Controller
                 header('Location: /Main/Topic/'.$post->topic_id);
         } else {
             $this->view('Secure/editPost', $post_id);
+        }
+    }
+
+    public function reply($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        if(isset($_POST['action'])){
+            if(isset($_POST['description'])){
+                $reply = new \app\models\Reply();
+                $reply->user_id = $_SESSION['user_id'];
+                $reply->post_id = $post_id;
+                $reply->content = $_POST['description'];
+                $reply->created_at = date('Y-m-d H:i:s');
+                $reply->updated_at = date('Y-m-d H:i:s');
+                $reply->likes = 0;
+                $reply->insert();
+                header('Location: /Main/Post/'.$post->post_id);
+            } else {
+                $this->view('Secure/reply', 'Please fill in all fields');
+            }
+        } else {
+            $this->view('Secure/reply', $post_id);
         }
     }
 }
