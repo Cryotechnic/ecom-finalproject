@@ -63,9 +63,17 @@
         </p>
         <p>
         <div style='border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;'>
+            <p>
             <?php
+                echo "Original post written by: " . $author->username;
+                echo " on: " . $post->created_at;
+                if($post->created_at != $post->updated_at){
+                    echo '<br>Last updated: ' . $post->updated_at;
+                }
+                echo '<br><br>';
                 echo $post->content;
             ?>
+            </p>
         </div>
         <br>
         <?php
@@ -75,11 +83,25 @@
                 $author = new \app\models\User();
                 $author = $author->getById($reply->user_id);
                 echo '<div style="border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;">';
-                echo '<p>Reply by: ' . $author->username . '</p>';
+                echo '<p>Reply by: ' . $author->username;
+                // reply adte
+                echo ' on ' . $reply->created_at;
+                // updated date if different 
+                if($reply->created_at != $reply->updated_at){
+                    echo '<br> Last updated: ' . $reply->updated_at;
+                }
+                echo '</p>';
                 echo '<p>' . $reply->content . '</p>';
+
+                if($author->user_id == $_SESSION['user_id']){
+                    echo '<a href="'.BASE.'/Secure/deletereply/'.$reply->reply_id.'">Delete</a>';
+                    echo ' ';
+                    echo '<a href="'.BASE.'/Secure/editreply/'.$reply->reply_id.'">Edit</a>';
+                }
                 echo '</div>';
             }
         ?>
+        <br>
             <?php 
                 if(isset($_SESSION['user_id']) && $post->locked == 0){
                     echo '<a href="'.BASE.'/Secure/Reply/'.$post->post_id.'">Reply to this post</a>';

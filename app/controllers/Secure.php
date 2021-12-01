@@ -83,4 +83,34 @@ class Secure extends \app\core\Controller
             $this->view('Secure/reply', $post_id);
         }
     }
+
+    public function deleteReply($reply_id){
+        $reply = new \app\models\Reply();
+        $reply = $reply->getByReplyId($reply_id);
+        if($reply->user_id == $_SESSION['user_id'] || $_SESSSION['admin'] == true){
+            $reply->delete($reply_id);
+            header('Location: /Main/Post/'.$reply->post_id);
+        }
+        header('Location: /Main/Post/'.$reply->post_id);
+    }
+
+    public function editReply($reply_id){
+        $reply = new \app\models\Reply();
+        $reply = $reply->getByReplyId($reply_id);
+
+        if($reply->user_id == $_SESSION['user_id']){
+            if(isset($_POST['action'])){
+                if(isset($_POST['description'])){
+                    $reply->content = $_POST['description'];
+                    $reply->updated_at = date('Y-m-d H:i:s');
+                    $reply->update();
+                    header('Location: /Main/Post/'.$reply->post_id);
+                } else {
+                    $this->view('Secure/editReply', 'Please fill in all fields');
+                }
+            } else {
+                $this->view('Secure/editReply', $reply);
+            }
+        }
+    }
 }

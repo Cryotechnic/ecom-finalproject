@@ -43,12 +43,14 @@
             $posts = new \app\models\Post();
             $posts = $posts->getByTopicId($data);
         //display all topics
+
+        
+
         foreach($posts as $post){
             $user = new \app\models\User();
             $user = $user->getById($post->user_id);
             echo "<div style='border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;'>";
             echo "<div style='float:left;'>";
-            echo "<img src=''>";
             echo "</div>";
             echo '<h2><a href="'.BASE.'/Main/Post/'.$post->post_id.'">' . $post->getTitle() . '</a><br></h2>';
             echo "<p>Created by: $user->username</p> <p>Created at: {$post->getCreated_at()}</p> <p>Updated at: {$post->getUpdated_at()}</p>";
