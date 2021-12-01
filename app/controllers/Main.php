@@ -41,6 +41,10 @@ class Main extends \app\core\Controller
         }
     }
 
+    public function test() {
+        $this->view('Main/test');
+    }
+
     // Logs in the user by checking if the username and password hash match the ones in the database
     public function login() {
         if(isset($_POST['action'])) {
