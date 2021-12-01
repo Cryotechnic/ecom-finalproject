@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Create a new Post</title>
+		<title>Edit your reply</title>
 	</head>
 	<body>
         <?php
@@ -26,7 +26,7 @@
         $post = new \app\models\Post();
         $post = $post->getByPostId($reply->post_id);
 	?>
-		Reply to post: <?php echo $post->title ?>
+		Edit your reply to post: <?php echo $post->title ?>
 		<form action='' method='post'>
 			Reply content: <br>
             <textarea name='description' placeholder='Content'><?= $reply->content?></textarea><br>

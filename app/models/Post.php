@@ -162,7 +162,7 @@ class Post extends \app\core\Model
     }
 
     public function getNonPinnedPosts($topic_id){
-        $sql = "SELECT * FROM post WHERE topic_id = :topic_id AND pinned = 0";
+        $sql = "SELECT * FROM post WHERE topic_id = :topic_id AND pinned = 0 ORDER BY created_at DESC";
         $stmt = self::$_connection->prepare($sql);
         $stmt->bindParam(':topic_id', $topic_id);
         $stmt->execute();

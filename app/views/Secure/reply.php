@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Create a new Post</title>
+		<title>Reply to post</title>
 	</head>
 	<body>
         <?php

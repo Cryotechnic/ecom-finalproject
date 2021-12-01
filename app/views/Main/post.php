@@ -40,6 +40,18 @@
                 echo $post->title;
             ?>
         </h1>
+        <?php
+            echo '<br>';
+            if(isset($_SESSION['user_id'])){
+                if($_SESSION['admin'] == true){
+                    if($post->pinned == 0){
+                        echo '<a href="'.BASE.'/Admin/pinpost/'.$post->post_id.'">Pin</a>';
+                    } else {
+                        echo '<a href="'.BASE.'/Admin/unpinpost/'.$post->post_id.'">Unpin</a>';
+                    }
+                }
+            }
+        ?>
         <p>
             Written by:
             <?php
@@ -105,8 +117,14 @@
             <?php 
                 if(isset($_SESSION['user_id']) && $post->locked == 0){
                     echo '<a href="'.BASE.'/Secure/Reply/'.$post->post_id.'">Reply to this post</a>';
+                    if($_SESSION['admin'] == true){
+                        echo '<br><a href="'.BASE.'/Admin/lockpost/'.$post->post_id.'">Lock post</a>';
+                    }
                 } else if($post->locked == 1){
                     echo 'This post is locked and not accepting more replies at this time';
+                    if($_SESSION['admin'] == true){
+                        echo '<br><a href="'.BASE.'/Admin/unlockpost/'.$post->post_id.'">Unlock post</a>';
+                    }
                 } else {
                     echo 'You must be logged in to reply';
                 }

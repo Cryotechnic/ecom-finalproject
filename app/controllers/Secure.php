@@ -50,16 +50,19 @@ class Secure extends \app\core\Controller
     public function editPost($post_id){
         $post = new \app\models\Post();
         $post = $post->getByPostId($post_id);
-
-        if(isset($_POST['action'])){
-                $post->title = $_POST['title'];
+        if($post->user_id == $_SESSION['user_id']){
+            if(isset($_POST['action'])){
                 $post->content = $_POST['description'];
                 $post->updated_at = date('Y-m-d H:i:s');
                 $post->update();
                 header('Location: /Main/Topic/'.$post->topic_id);
+            } else {
+                $this->view('Secure/editPost', $post_id);
+            }
         } else {
-            $this->view('Secure/editPost', $post_id);
+            header('Location: /Main/Topic/'.$post->topic_id);
         }
+
     }
 
     public function reply($post_id){
