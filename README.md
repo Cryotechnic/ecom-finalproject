@@ -1,21 +1,20 @@
 # assignment2-ecom
 
 ## Tasks will be divided as follows, and will be updated periodically
-# Models - ron
+# Models - ron {DONE}
 	user
 	post
 	topic
 	reply
-# Adapt login/2fa/register - ben
+# Adapt login/2fa/register - ben {DONE}
 	register
 	login
-	2fa
-# crud topics - ben
+# crud topics - ben {DONE}
 	create
 	update
 	delete
 
-# crud posts - ron 
+# crud posts - ben {IN PROGRESS}
 	pin
 	create
 	update
@@ -23,16 +22,16 @@
 	lock
 	flag
 	like
-crud replies
+# crud replies - ben {TO DO}
 	quote post
 
-user profiles
+# user profiles - ben {TO DO}
 	update name
 	update location
 	update bio
 	change username
 	change password
 	ban user
-admin view
+# admin view - ben {TO DO}
 	view reports
 	manage banned users
