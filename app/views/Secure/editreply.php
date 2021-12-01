@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Reply to post</title>
+		<title>Edit your reply</title>
 	</head>
 	<body>
         <?php
@@ -21,14 +21,15 @@
 	<hr>
 	<body>
 	<?php 
-
+        $reply = new \app\models\Reply();
+        $reply = $reply->getByReplyId($data);
         $post = new \app\models\Post();
-        $post = $post->getByPostId($data);
+        $post = $post->getByPostId($reply->post_id);
 	?>
-		Reply to post: <?php echo $post->title ?>
+		Edit your reply to post: <?php echo $post->title ?>
 		<form action='' method='post'>
 			Reply content: <br>
-            <textarea name='description' placeholder='Content'></textarea><br>
+            <textarea name='description' placeholder='Content'><?= $reply->content?></textarea><br>
 			<input type='submit' name='action' value='Reply' />
 		</form>
 	</body>

@@ -38,4 +38,36 @@ class Admin extends \app\core\Controller
         header('Location: /Main/index');
     }
 
+    public function lockpost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->locked = 1;
+        $post->update();
+        header('Location: /Main/post/'.$post_id);
+    }
+
+    public function unlockpost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->locked = 0;
+        $post->update();
+        header('Location: /Main/post/'.$post_id);
+    }
+
+    public function pinpost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->pinned = 1;
+        $post->update();
+        header('Location: /Main/post/'.$post_id);
+    }
+
+    public function unpinpost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->pinned = 0;
+        $post->update();
+        header('Location: /Main/post/'.$post_id);
+    }
+
 }

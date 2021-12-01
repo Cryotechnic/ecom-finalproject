@@ -26,7 +26,7 @@ class Main extends \app\core\Controller
 
             // Check if the username is already taken
             if($user->get($_POST['username'])){
-                $this->view('Main/register', 'Username already in use');
+                $this->view('Main/register', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Username already in use</div>');
             } else {
                 $user->insert(); // Hashing here
                 $user = $user->get($_POST['username']);
@@ -37,7 +37,7 @@ class Main extends \app\core\Controller
                 header('Location: /Main/index');
             }
         } else { 
-            $this->view('Main/register');
+            $this->view('Main/register', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Passwords do not match</div>');
         }
     }
 
@@ -56,10 +56,15 @@ class Main extends \app\core\Controller
                 // redirect if user has 2fa enabled
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user'] = $user;
+                if($user->type == 'admin') {
+                    $_SESSION['admin'] = true;
+                } else {
+                    $_SESSION['admin'] = false;
+                }
                 header('Location: /Main/index');
             } else {
                 // if username or password is incorrect, redirect to login and display error
-                $this->view('Main/login', 'Wrong username or password combination!');
+                $this->view('Main/login', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Incorrect username or password.</div>');
             }
         }
         else {

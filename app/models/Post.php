@@ -152,6 +152,24 @@ class Post extends \app\core\Model
         return $stmt->fetchAll();
     }
 
+    public function getPinnedPosts($topic_id) {
+        $sql = "SELECT * FROM post WHERE topic_id = :topic_id AND pinned = 1";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':topic_id', $topic_id);
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Post');
+        return $stmt->fetchAll();
+    }
+
+    public function getNonPinnedPosts($topic_id){
+        $sql = "SELECT * FROM post WHERE topic_id = :topic_id AND pinned = 0 ORDER BY created_at DESC";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':topic_id', $topic_id);
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Post');
+        return $stmt->fetchAll();        
+    }
+
     // CRUD functions
     // insert
     public function insert() {
