@@ -78,4 +78,23 @@ class Admin extends \app\core\Controller
         header('Location: /Admin/index/');
     }
 
+    public function banUser($user_id){
+        $user = new \app\models\User();
+        $user = $user->getById($user_id);
+        $user->banned = 1;
+        $user->update();
+        header('Location: /Admin/index/');
+    }
+
+    public function unbanUser($user_id){
+        $user = new \app\models\User();
+        $user = $user->getById($user_id);
+        $user->banned = 0;
+        $user->update();
+        header('Location: /Admin/viewbans/');
+    }
+
+    public function viewBans(){
+        $this->view('Admin/viewBans');
+    }
 }

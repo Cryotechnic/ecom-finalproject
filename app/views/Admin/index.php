@@ -6,6 +6,8 @@
         <h1>Admin Page</h1>
         Only admins can see this
         <a href="/Main/index">Go back</a>
+        <br>
+        <a href="/Admin/viewbans">View banned users</a>
 
         <h2>Flagged posts</h2>
         <?php

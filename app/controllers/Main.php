@@ -47,7 +47,7 @@ class Main extends \app\core\Controller
             $user = new \app\models\User();
             $user = $user->get($_POST['username']);
 
-            if($user != false && password_verify($_POST['password'], $user->password_hash)) {
+            if($user != false && password_verify($_POST['password'], $user->password_hash) && $user->banned == 0) {
                 $_SESSION['user_id'] = $user->user_id;
                 $_SESSION['username'] = $user->username;
 
