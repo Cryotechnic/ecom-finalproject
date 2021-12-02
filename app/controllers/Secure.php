@@ -83,7 +83,29 @@ class Secure extends \app\core\Controller
                 $this->view('Secure/reply', 'Please fill in all fields');
             }
         } else {
-            $this->view('Secure/reply', $post_id);
+            $this->view('Secure/reply', array('post_id' => $post_id));
+        }
+    }
+
+    public function quoteReply($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        if(isset($_POST['action'])){
+            if(isset($_POST['description'])){
+                $reply = new \app\models\Reply();
+                $reply->user_id = $_SESSION['user_id'];
+                $reply->post_id = $post_id;
+                $reply->content = $_POST['description'];
+                $reply->created_at = date('Y-m-d H:i:s');
+                $reply->updated_at = date('Y-m-d H:i:s');
+                $reply->likes = 0;
+                $reply->insert();
+                header('Location: /Main/Post/'.$post->post_id);
+            } else {
+                $this->view('Secure/reply', 'Please fill in all fields');
+            }
+        } else {
+            $this->view('Secure/reply', array('post_id' => $post_id, 'quote' => $post->content));
         }
     }
 
@@ -115,5 +137,27 @@ class Secure extends \app\core\Controller
                 $this->view('Secure/editReply', $reply);
             }
         }
+    }
+
+    public function like($post_id){
+        $like = new \app\models\Like();
+        $like->user_id = $_SESSION['user_id'];
+        $like->post_id = $post_id;
+        $like->insert();
+        header('Location: /Main/Post/'.$post_id);
+    }
+
+    public function unlike($post_id){
+        $like = new \app\models\Like();
+        $like->delete($post_id, $_SESSION['user_id']);
+        header('Location: /Main/Post/'.$post_id);
+    }
+
+    public function reportpost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->flagged = 1;
+        $post->update();
+        header('Location: /Main/Post/'.$post_id);
     }
 }

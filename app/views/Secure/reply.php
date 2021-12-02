@@ -21,14 +21,25 @@
 	<hr>
 	<body>
 	<?php 
-
         $post = new \app\models\Post();
-        $post = $post->getByPostId($data);
+        $post = $post->getByPostId($data['post_id']);
+        $author = new \app\models\User();
+        $author = $author->getById($post->user_id);
 	?>
 		Reply to post: <?php echo $post->title ?>
 		<form action='' method='post'>
 			Reply content: <br>
-            <textarea name='description' placeholder='Content'></textarea><br>
+            <textarea name='description' placeholder='Content'>
+                <?php 
+                    if(isset($data['quote'])){
+                        echo "\"";
+                        echo $data['quote'];
+                        echo "\"";
+                        echo "\nWritten by: $author->username";
+                        echo "\non: " . $post->created_at;
+                    }
+                ?>
+            </textarea><br>
 			<input type='submit' name='action' value='Reply' />
 		</form>
 	</body>

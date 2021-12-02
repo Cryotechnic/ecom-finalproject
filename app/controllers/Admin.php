@@ -69,5 +69,13 @@ class Admin extends \app\core\Controller
         $post->update();
         header('Location: /Main/post/'.$post_id);
     }
+    
+    public function unflagpost($post_id){
+        $post = new \app\models\Post();
+        $post = $post->getByPostId($post_id);
+        $post->flagged = 0;
+        $post->update();
+        header('Location: /Admin/index/');
+    }
 
 }
