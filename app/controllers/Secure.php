@@ -12,8 +12,7 @@ class Secure extends \app\core\Controller
 {
 
     public function index(){
-        echo "Secure";
-        $this->view('Secure/index');
+        header("Location: /");
     }
 
     public function createPost($topic_id){
