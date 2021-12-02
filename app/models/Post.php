@@ -170,6 +170,15 @@ class Post extends \app\core\Model
         return $stmt->fetchAll();        
     }
 
+    // get flagged posts
+    public function getFlaggedPosts() {
+        $sql = "SELECT * FROM post WHERE flagged = 1";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\Post');
+        return $stmt->fetchAll();
+    }
+
     // CRUD functions
     // insert
     public function insert() {

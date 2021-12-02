@@ -1,6 +1,6 @@
 <html>
     <head>
-        <title>Topic</title>
+        <title>Post</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
@@ -29,6 +29,14 @@
             $topic = $topic->getByTopicId($post->topic_id);
             $author = new \app\models\User();
             $author = $author->getById($post->user_id);
+            $likes = new \app\models\Like();
+            $likes = $likes->getByPostId($post->post_id);
+            $likesCount;
+            if($likes == null){
+                $likesCount = 0;
+            } else {
+                $likesCount = count($likes);
+            }
         ?>
         <a href="<?=BASE?>/Main/index">Home</a> >
         <a href="<?=BASE?>/Main/topic/<?=$topic->topic_id?>"><?= $topic->name ?></a> > 
@@ -41,6 +49,15 @@
             ?>
         </h1>
         <?php
+            $like = new \app\models\Like();
+            $like = $like->getLike($post->post_id, $_SESSION['user_id']);
+            echo 'Likes:' . $likesCount;   
+            echo '<br>';
+            if($like == null){
+                echo '<a href="'.BASE.'/Secure/like/'.$post->post_id.'">Like</a>';
+            } else {
+                echo '<a href="'.BASE.'/Secure/unlike/'.$post->post_id.'">Unlike</a>';
+            }
             echo '<br>';
             if(isset($_SESSION['user_id'])){
                 if($_SESSION['admin'] == true){
@@ -50,6 +67,11 @@
                         echo '<a href="'.BASE.'/Admin/unpinpost/'.$post->post_id.'">Unpin</a>';
                     }
                 }
+            }
+            if(isset($_SESSION['user_id'])){
+                // report post button
+                echo '<br>';
+                echo '<a href="'.BASE.'/Secure/reportpost/'.$post->post_id.'">Report this post</a>';
             }
         ?>
         <p>
@@ -66,6 +88,7 @@
                     if($user->type == 'admin' || $user->user_id == $post->user_id){
                         echo '<br><a href="'.BASE.'/Secure/deletepost/'.$post->post_id.'">Delete</a>';
                         if($user->user_id == $post->user_id){
+          
                             echo '<br><a href="'.BASE.'/Secure/editpost/'.$post->post_id.'">Edit</a>';
                         }
                     }
@@ -83,7 +106,7 @@
                     echo '<br>Last updated: ' . $post->updated_at;
                 }
                 echo '<br><br>';
-                echo $post->content;
+                echo nl2br($post->content);
             ?>
             </p>
         </div>
@@ -103,7 +126,7 @@
                     echo '<br> Last updated: ' . $reply->updated_at;
                 }
                 echo '</p>';
-                echo '<p>' . $reply->content . '</p>';
+                echo '<p>' . nl2br($reply->content) . '</p>';
 
                 if($author->user_id == $_SESSION['user_id']){
                     echo '<a href="'.BASE.'/Secure/deletereply/'.$reply->reply_id.'">Delete</a>';
@@ -115,8 +138,10 @@
         ?>
         <br>
             <?php 
+            
                 if(isset($_SESSION['user_id']) && $post->locked == 0){
-                    echo '<a href="'.BASE.'/Secure/Reply/'.$post->post_id.'">Reply to this post</a>';
+                    echo '<a href="'.BASE.'/Secure/Reply/'.$post->post_id.'">Reply to this post</a><br>';
+                    echo '<a href="'.BASE.'/Secure/quoteReply/'.$post->post_id.'">Quote to this post</a>';
                     if($_SESSION['admin'] == true){
                         echo '<br><a href="'.BASE.'/Admin/lockpost/'.$post->post_id.'">Lock post</a>';
                     }
