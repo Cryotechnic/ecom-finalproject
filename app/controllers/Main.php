@@ -80,6 +80,10 @@ class Main extends \app\core\Controller
         $this->view('Main/post', $post_id);
     }
 
+    public function user($user_id){
+        $this->view('Main/user', $user_id);
+    }
+
     // Logs out the user by destroying the session variables
     public function logout() {
         session_destroy();

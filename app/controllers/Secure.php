@@ -156,4 +156,18 @@ class Secure extends \app\core\Controller
         $post->update();
         header('Location: /Main/Post/'.$post_id);
     }
+
+    public function editProfile(){
+        if(isset($_POST['action'])){
+            $user = new \app\models\User();
+            $user = $user->getById($_SESSION['user_id']);
+            $user->dob = $_POST['date'];
+            $user->location = $_POST['location'];
+            $user->bio = $_POST['description'];
+            $user->update();
+            header('Location: /Main/user/' . $_SESSION['user_id']);
+        } else {
+            $this->view('Secure/editProfile');
+        }
+    }
 }

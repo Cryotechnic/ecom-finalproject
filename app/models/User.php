@@ -174,8 +174,26 @@ class User extends \app\core\Model
         return self::$_connection->lastInsertId();
     }
 
-    // update
+    //update 
+
     public function update()
+    {
+        $sql = "UPDATE user SET username = :username, password_hash = :password_hash, email = :email, type = :type, banned = :banned, location = :location, dob = :dob, bio = :bio WHERE user_id = :user_id";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->bindParam(':username', $this->username);
+        $stmt->bindParam(':password_hash', $this->password_hash);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':type', $this->type);
+        $stmt->bindParam(':banned', $this->banned);
+        $stmt->bindParam(':location', $this->location);
+        $stmt->bindParam(':dob', $this->dob);
+        $stmt->bindParam(':bio', $this->bio);
+        $stmt->bindParam(':user_id', $this->user_id);
+        $stmt->execute();
+    }
+
+    // update
+    public function updatePassword()
     {
         $this->password_hash = password_hash($this->password, PASSWORD_DEFAULT);
         $sql = "UPDATE user SET username = :username, password_hash = :password_hash WHERE user_id = :user_id";
