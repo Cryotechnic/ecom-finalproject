@@ -162,6 +162,17 @@ class User extends \app\core\Model
         return $stmt->fetch();
     }
 
+    // get banned users
+    public function getBannedUsers()
+    {
+        $sql = "SELECT * FROM user WHERE banned = 1";
+        $stmt = self::$_connection->prepare($sql);
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'app\\models\\User');
+        return $stmt->fetchAll();
+    }
+    
+
     // insert
     public function insert()
     {

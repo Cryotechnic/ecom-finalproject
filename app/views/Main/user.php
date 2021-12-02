@@ -15,9 +15,15 @@
                 <div style="text-align: center; padding-right: 2%;">
                     <h1><?=$user->username?></h1>
                     <?php
+                    if(isset($_SESSION['user_id'])){
                         if($user->user_id == $_SESSION['user_id']){
-                            echo "<a href='/Secure/editProfile'>Edit Profile</a>";
+                            echo "<a href='/Secure/editProfile'>Edit Profile</a><br>";
                         }
+                        if($_SESSION['admin'] == true){
+                            echo "<a href='/Admin/banUser/".$user->user_id."'>Ban User</a>";
+                        }
+                    }
+
                     ?>
                 </div>
                 <div style="text-align: left; flex: 50%;">
