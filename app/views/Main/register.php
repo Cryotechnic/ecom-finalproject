@@ -12,13 +12,6 @@
 			echo "<br>";
 		}
 	?>
-		<!-- Register a new user or <a href="/Main/login">Login</a> with your credentials
-		<form action='' method='post'>
-			Username: <input type='text' name='username' /><br>
-			Password: <input type='password' name='password' /><br>
-			Password confirmation: <input type='password' name='password_confirm' /><br>
-			<input type='submit' name='action' value='Register' />
-		</form> -->
 		<style>body,html{height:100%}.global-container{height:100%;display:flex;align-items:center;justify-content:center;background-color:#f5f5f5}form{padding-top:10px;font-size:14px;margin-top:30px}.card-title{font-weight:300}.btn{font-size:14px;margin-top:20px}.login-form{width:330px;margin:20px}.sign-up{text-align:center;padding:20px 0 0}.alert{margin-bottom:-30px;font-size:13px;margin-top:20px;}</style>
 		<div class="global-container">
 			<div class="card login-form">
