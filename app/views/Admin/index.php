@@ -22,7 +22,7 @@
             echo "<div style='float:left;'>";
             echo "</div>";
             echo '<h2><a href="'.BASE.'/Main/Post/'.$post->post_id.'">' . $post->getTitle() . '</a><br></h2>';
-            echo "<p>Created by: $user->username</p> <p>Created at: {$post->getCreated_at()}</p> <p>Updated at: {$post->getUpdated_at()}</p>";
+            echo "<p>Created by:<a href='/Main/user/" . $user->user_id . "'>" . $user->username . "</a></p> <p>Created at: {$post->getCreated_at()}</p> <p>Updated at: {$post->getUpdated_at()}</p>";
             echo "<p>";
             echo "<a href='".BASE."/Admin/unflagPost/$post->post_id'>Mark as read</a>";
             echo "</p>";

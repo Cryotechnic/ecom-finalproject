@@ -80,7 +80,7 @@
         <p>
             Written by:
             <?php
-                echo $author->username;
+                echo "<a href='/Main/user/" . $author->user_id . "'>" . $author->username . "</a>";
                 echo " on: " . $post->created_at;
                 if($post->created_at != $post->updated_at){
                     echo '<br>Last updated: ' . $post->updated_at;
@@ -150,7 +150,7 @@
                 $author = new \app\models\User();
                 $author = $author->getById($reply->user_id);
                 echo '<div style="border:1px solid white; width:20%; white-space: nowrap; margin-left: 1%; padding-left:1%;">';
-                echo '<p>Reply by: ' . $author->username;
+                echo '<p>Reply by: ' . "<a href='/Main/user/" . $author->user_id . "'>" . $author->username . "</a>";
                 // reply adte
                 echo ' on ' . $reply->created_at;
                 // updated date if different 
