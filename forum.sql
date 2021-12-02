@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.1.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2021 at 08:22 PM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 8.0.5
+-- Generation Time: Dec 02, 2021 at 02:26 AM
+-- Server version: 10.4.20-MariaDB
+-- PHP Version: 8.0.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -24,6 +24,17 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `likes`
+--
+
+CREATE TABLE `likes` (
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `post`
 --
 
@@ -35,8 +46,8 @@ CREATE TABLE `post` (
   `content` text NOT NULL,
   `likes` int(11) NOT NULL,
   `pinned` tinyint(1) NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL,
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
   `flagged` tinyint(1) NOT NULL,
   `locked` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -53,8 +64,8 @@ CREATE TABLE `reply` (
   `user_id` int(11) NOT NULL,
   `content` text NOT NULL,
   `likes` int(11) NOT NULL,
-  `created_at` date NOT NULL,
-  `updated_at` date NOT NULL
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -91,6 +102,13 @@ CREATE TABLE `user` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `likes`
+--
+ALTER TABLE `likes`
+  ADD KEY `post_id` (`post_id`),
+  ADD KEY `user_id` (`user_id`);
 
 --
 -- Indexes for table `post`
@@ -151,6 +169,13 @@ ALTER TABLE `user`
 --
 -- Constraints for dumped tables
 --
+
+--
+-- Constraints for table `likes`
+--
+ALTER TABLE `likes`
+  ADD CONSTRAINT `likes_ibfk_1` FOREIGN KEY (`post_id`) REFERENCES `post` (`post_id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `likes_ibfk_2` FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `post`
