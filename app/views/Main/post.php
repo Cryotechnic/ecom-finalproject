@@ -48,17 +48,6 @@
         .admin, .admin .a-admin {margin-left: 1%; background-color: transparent; border-color: #f1fa8c; color: #f1fa8c; border-radius: 0.25rem;}
         .admin:hover, .admin:hover .a-admin:hover {border-color: #50fa7b; color: #50fa7b; background-color: transparent; opacity: 1;}
     </style>
-        <?php
-             if(isset($_SESSION['username'])){
-                 $user = new \app\models\User();
-                 $user = $user->get($_SESSION['username']);
-                 if(isset($_SESSION['user_id'])){
-                     echo '<br><h2 style="text-align:center;">Welcome, ' . $_SESSION['username'] . '!</h2><br>';
-                 } 
-             } else {
-                 echo '<h3 id="welcome-notlogin">Welcome to the forum, login or register for full functionality!<h3><br>';
-             }
-         ?>
     </body>
     <hr>
     <body>
@@ -79,7 +68,7 @@
             }
         ?>
         <!-- Again, HOW DOES THIS WORK -->
-        <a style="whitespace: nowrap;" href="<?=BASE?>/Main/index">Home</a><a id="a">></a><a href="<?=BASE?>/Main/topic/<?=$data?>"><?= $topic->name ?></a><a id="a">></a>
+        <a style="whitespace: nowrap;" href="<?=BASE?>/Main/index">Home</a><a id="a">></a><a href="<?=BASE?>/Main/topic/<?=$topic->topic_id?>"><?= $topic->name ?></a><a id="a">></a>
         <a href="<?=BASE?>/Main/post/<?=$post->post_id?>"><?= $post->title ?></a>
         <hr>
 
