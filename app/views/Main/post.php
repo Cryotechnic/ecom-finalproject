@@ -101,8 +101,9 @@
         <?php
             $like = new \app\models\Like();
             $like = $like->getLike($post->post_id, $_SESSION['user_id']);
-            echo 'Likes:' . $likesCount;   
-            echo '<br>';
+            echo '<p>Likes:' . $likesCount;   
+            echo '</p><br>';
+            
             if($like == null){
                 echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/like/'.$post->post_id.'">Like</a></button>';
             } else {
