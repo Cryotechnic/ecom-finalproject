@@ -100,15 +100,18 @@
         </p>
         <?php
             $like = new \app\models\Like();
-            $like = $like->getLike($post->post_id, $_SESSION['user_id']);
+            if(isset($_SESSION['user_id'])){
+                $like = $like->getLike($post->post_id, $_SESSION['user_id']);
+                if($like == null){
+                    echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/like/'.$post->post_id.'">Like</a></button>';
+                } else {
+                    echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/unlike/'.$post->post_id.'">Unlike</a></button>';
+                }
+            }
             echo '<p>Likes:' . $likesCount;   
             echo '</p><br>';
             
-            if($like == null){
-                echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/like/'.$post->post_id.'">Like</a></button>';
-            } else {
-                echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/unlike/'.$post->post_id.'">Unlike</a></button>';
-            }
+
             if(isset($_SESSION['user_id'])){
                 if($_SESSION['admin'] == true){
                     if($post->pinned == 0){
@@ -157,10 +160,14 @@
                 echo '</p>';
                 echo '<p>' . nl2br($reply->content) . '</p>';
 
-                if($author->user_id == $_SESSION['user_id']){
-                    echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/deletereply/'.$reply->reply_id.'">Delete</a></button>';
-                    echo ' ';
-                    echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/editreply/'.$reply->reply_id.'">Edit</a></button>';
+                if(isset($_SESSION['user_id'])){
+                    if($author->user_id == $_SESSION['user_id']){
+                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/deletereply/'.$reply->reply_id.'">Delete</a></button>';
+                        echo ' ';
+                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/editreply/'.$reply->reply_id.'">Edit</a></button>';
+                    } else if($_SESSION['admin'] == true){
+                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Admin/deletereply/'.$reply->reply_id.'">Delete</a></button>';
+                    }
                 }
                 echo '</div>';
             }
