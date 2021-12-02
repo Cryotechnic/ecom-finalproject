@@ -29,17 +29,15 @@
 		Reply to post: <?php echo $post->title ?>
 		<form action='' method='post'>
 			Reply content: <br>
-            <textarea name='description' placeholder='Content'>
-                <?php 
-                    if(isset($data['quote'])){
-                        echo "\"";
-                        echo $data['quote'];
-                        echo "\"";
-                        echo "\nWritten by: $author->username";
-                        echo "\non: " . $post->created_at;
-                    }
-                ?>
-            </textarea><br>
+            <?php
+                if(isset($data['quote'])){
+                    echo "<textarea name='description' placeholder='Content'>";
+                    echo "\"" . $data['quote'] . "\"" . "\nWritten by: " . $author->username . "\n";
+                    echo "</textarea>";
+                } else {
+                    echo "<textarea name='description' placeholder='Content'></textarea>";
+                }
+            ?><br>
 			<input type='submit' name='action' value='Reply' />
 		</form>
 	</body>
