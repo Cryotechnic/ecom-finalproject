@@ -62,7 +62,6 @@ class Secure extends \app\core\Controller
         } else {
             header('Location: /Main/Topic/'.$post->topic_id);
         }
-
     }
 
     public function reply($post_id){
@@ -122,20 +121,17 @@ class Secure extends \app\core\Controller
     public function editReply($reply_id){
         $reply = new \app\models\Reply();
         $reply = $reply->getByReplyId($reply_id);
-
         if($reply->user_id == $_SESSION['user_id']){
             if(isset($_POST['action'])){
-                if(isset($_POST['description'])){
-                    $reply->content = $_POST['description'];
-                    $reply->updated_at = date('Y-m-d H:i:s');
-                    $reply->update();
-                    header('Location: /Main/Post/'.$reply->post_id);
-                } else {
-                    $this->view('Secure/editReply', 'Please fill in all fields');
-                }
+                $reply->content = $_POST['description'];
+                $reply->updated_at = date('Y-m-d H:i:s');
+                $reply->update();
+                header('Location: /Main/Post/'.$reply->post_id);
             } else {
-                $this->view('Secure/editReply', $reply);
+                $this->view('Secure/editReply', $reply->post_id);
             }
+        } else {
+            header('Location: /Main/Post/'.$reply->post_id);
         }
     }
 
