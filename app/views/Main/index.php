@@ -14,28 +14,46 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-md-auto gap-2">
                     <li class="nav-item rounded">
-                        <a class="nav-link active" aria-current="page" href="#"><i class="bi bi-house-fill me-2"></i>Home</a>
+                        <a class="nav-link active" aria-current="page" href="/Main/index"><i class="bi bi-house-fill me-2"></i>Home</a>
                     </li>
                     <li class="nav-item dropdown rounded">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill me-2"></i>Account</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <?php if(isset($_SESSION['user_id'])){
                             echo "<li><a class='dropdown-item' href='/Main/logout'>Logout</a></li>";
-                            } else {
-                                echo "<li class='dropdown-item'><a href='/Main/login'>Login</a></li>";
-                                echo "<li class='dropdown-item'><a href='/Main/register'>Register</a></li>";
-                            }
+                        } else {
+                            echo "<li class='dropdown-item'><a href='/Main/login'>Login</a></li>";
+                            echo "<li class='dropdown-item'><a href='/Main/register'>Register</a></li>";
+                        }
                         ?>            
                         </ul>
                     </li>
+                        <?php
+                            $user = new \app\models\User();
+                            if(isset($_SESSION['username'])){
+                                //var_dump($_SESSION['username']);
+                                $user = $user->get($_SESSION['username']);
+                                if($user->type == 'admin'){
+                                    echo '<li class="nav-item dropdown rounded">';
+                                        echo '<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill me-2"></i>Admin</a>';
+                                            echo '<ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">';     
+                                            echo '<li><a class="dropdown-item" href="/Admin/createTopic">Create Topic</a></li>';
+                                            echo '<li><a class="dropdown-item" href="/Admin/index">Admin Panel</a></li>';
+                                            echo '</ul>';
+                                }
+                            }
+                        ?>
                 </ul>
             </div>
         </div>
     </nav>
     <style>
-        body {font-family: Montserrat, sans-serif;}
+        body {font-family: Montserrat, sans-serif; background: #282a36;}
+        h1, h2, h3 {color: #f8f8f2;}
         .navbar-nav .nav-item:hover {background-color: rgba(180, 190, 203, 0.4);}
-        a {color: #000000; text-decoration: none;}
+        a {color: #ff79c6; text-decoration: none; opacity: 1; }
+        p {color: #ffb86c;}
+        a:hover {opacity: 0.6; transition: 0.5s; color: #ff79c6;}
         #welcome-notlogin {text-align: center; margin-top: 10px;}
     </style>
         <?php
@@ -43,7 +61,7 @@
                  $user = new \app\models\User();
                  $user = $user->get($_SESSION['username']);
                  if(isset($_SESSION['user_id'])){
-                     echo '<h3>Welcome, ' . $_SESSION['username'] . '!</h3><br>';
+                     echo '<br><h2 style="text-align:center;">Welcome, ' . $_SESSION['username'] . '!</h2><br>';
                  } 
              } else {
                  echo '<h3 id="welcome-notlogin">Welcome to the forum, login or register for full functionality!<h3><br>';
@@ -51,14 +69,6 @@
          ?>
     </body>
 <h1 style="padding-left: 1%;">Topics</h1>
-<?php
-        if(isset($_SESSION['username'])){
-            if($user->type == 'admin'){
-                echo '<a href="'.BASE.'/Admin/index">Admin Panel</a><br><br>';
-                echo '<a href="'.BASE.'/Admin/createTopic">Create Topic</a><br><br>';
-            }
-        }
-?>
 
 <?php
 $topics = new \app\models\Topic();
@@ -67,7 +77,7 @@ $topics = $topics->getAllTopics();
 foreach($topics as $topic){
     echo "<div style='border:1px solid black; width:400px; margin-left:1%; padding-left:1%;'>";
     echo '<br><a style="font-size: 30px;" href="'.BASE.'/Main/Topic/'.$topic['topic_id'].'">'.$topic['name'].'</a>';
-    echo '<br>'.$topic['description'].'<br><br>';
+    echo '<br><p>'.$topic['description'].'<br></p>';
 
     if(isset($_SESSION['username'])){
         if($user->type == 'admin'){
@@ -76,8 +86,6 @@ foreach($topics as $topic){
     }
     echo "</div><br>";
 }
-
-
 ?>
 
 </html>
