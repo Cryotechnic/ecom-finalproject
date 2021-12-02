@@ -48,6 +48,28 @@
                 echo $post->title;
             ?>
         </h1>
+        <p>
+            Written by:
+            <?php
+                echo $author->username;
+                echo " on: " . $post->created_at;
+                if($post->created_at != $post->updated_at){
+                    echo '<br>Last updated: ' . $post->updated_at;
+                }
+                if(isset($_SESSION['user_id'])){
+                    $user = new \app\models\User();
+                    $user = $user->get($_SESSION['username']);
+                    if($user->type == 'admin' || $user->user_id == $post->user_id){
+                        echo '<br><a href="'.BASE.'/Secure/deletepost/'.$post->post_id.'">Delete</a>';
+                        if($user->user_id == $post->user_id){
+          
+                            echo '<br><a href="'.BASE.'/Secure/editpost/'.$post->post_id.'">Edit</a>';
+                        }
+                    }
+                }
+            ?>
+            
+        </p>
         <?php
             $like = new \app\models\Like();
             $like = $like->getLike($post->post_id, $_SESSION['user_id']);
@@ -74,28 +96,7 @@
                 echo '<a href="'.BASE.'/Secure/reportpost/'.$post->post_id.'">Report this post</a>';
             }
         ?>
-        <p>
-            Written by:
-            <?php
-                echo $author->username;
-                echo " on: " . $post->created_at;
-                if($post->created_at != $post->updated_at){
-                    echo '<br>Last updated: ' . $post->updated_at;
-                }
-                if(isset($_SESSION['user_id'])){
-                    $user = new \app\models\User();
-                    $user = $user->get($_SESSION['username']);
-                    if($user->type == 'admin' || $user->user_id == $post->user_id){
-                        echo '<br><a href="'.BASE.'/Secure/deletepost/'.$post->post_id.'">Delete</a>';
-                        if($user->user_id == $post->user_id){
-          
-                            echo '<br><a href="'.BASE.'/Secure/editpost/'.$post->post_id.'">Edit</a>';
-                        }
-                    }
-                }
-            ?>
-            
-        </p>
+
         <p>
         <div style='border:1px solid black; width:20%; white-space: nowrap; padding-left: 1%;'>
             <p>
