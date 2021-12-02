@@ -37,7 +37,7 @@ class Main extends \app\core\Controller
                 header('Location: /Main/index');
             }
         } else { 
-            $this->view('Main/register', '<div class="alert alert-danger alert-dismissible fade show" role="alert">Passwords do not match</div>');
+            $this->view('Main/register');
         }
     }
 
