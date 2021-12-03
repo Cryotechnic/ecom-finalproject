@@ -81,9 +81,11 @@ class Admin extends \app\core\Controller
     public function banUser($user_id){
         $user = new \app\models\User();
         $user = $user->getById($user_id);
-        $user->banned = 1;
-        $user->update();
-        header('Location: /Admin/index/');
+        if ($user->type != 'admin'){
+            $user->banned = 1;
+            $user->update();
+            header('Location: /Admin/index/');
+        }
     }
 
     public function unbanUser($user_id){

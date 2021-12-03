@@ -45,7 +45,7 @@
         #welcome-notlogin {text-align: center; margin-top: 10px;}
         .btn, .btn-primary {margin-left: 1%; background-color: transparent; border-color: #ff79c6; color: #f8f8f2; border-radius: 0.25rem;}
         .btn:hover, .btn-outline-primary:hover {border-color: #bd93f9; color: #bd93f9; background-color: transparent; opacity: 1;}
-        .admin, .admin .a-admin {margin-left: 1%; background-color: transparent; border-color: #f1fa8c; color: #f1fa8c; border-radius: 0.25rem;}
+        .admin, .admin .a-admin {margin-left: 0%; background-color: transparent; border-color: #f1fa8c; color: #f1fa8c; border-radius: 0.25rem;}
         .admin:hover, .admin:hover .a-admin:hover {border-color: #50fa7b; color: #50fa7b; background-color: transparent; opacity: 1;}
     </style>
     </body>
@@ -80,7 +80,7 @@
         <p>
             Written by:
             <?php
-                echo "<a href='/Main/user/" . $author->user_id . "'>" . $author->username . "</a>";
+                echo "<a style='padding-left: 0%; 'href='/Main/user/".$author->user_id . "'>" . $author->username . "</a>";
                 echo " on: " . $post->created_at;
                 if($post->created_at != $post->updated_at){
                     echo '<br>Last updated: ' . $post->updated_at;
@@ -89,9 +89,9 @@
                     $user = new \app\models\User();
                     $user = $user->get($_SESSION['username']);
                     if($user->type == 'admin' || $user->user_id == $post->user_id){
-                        echo '<br><button type="button" class="btn btn-outline-primary admin"><a class="a-admin" style="padding-left: 0%;" href="'.BASE.'/Secure/deletepost/'.$post->post_id.'">Delete</a></button>';
+                        echo '<br><button style="margin-right: 0.5%;" type="button" class="btn btn-outline-primary admin"><a class="a-admin" href="'.BASE.'/Secure/deletepost/'.$post->post_id.'">Delete</a></button>';
                         if($user->user_id == $post->user_id){
-                            echo '<button type="button" class="btn btn-outline-primary admin"><a class="a-admin" style="padding-left: 0%;"href="'.BASE.'/Secure/editpost/'.$post->post_id.'">Edit</a></button>';
+                            echo '<button type="button" class="btn btn-outline-primary admin"><a class="a-admin" href="'.BASE.'/Secure/editpost/'.$post->post_id.'">Edit</a></button>';
                         }
                     }
                 }
@@ -108,7 +108,7 @@
                     echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/unlike/'.$post->post_id.'">Unlike</a></button>';
                 }
             }
-            echo '<p>Likes:' . $likesCount;   
+            echo '<p>Likes: ' . $likesCount;   
             echo '</p><br>';
             
 
@@ -129,7 +129,7 @@
         ?>
 
         <p>
-        <div style='border:1px solid white; width:30%; white-space: nowrap; margin-left: 1%; padding-left:1%;'>
+        <div style='border:1px solid #f1fa8c; width:30%; white-space: nowrap; margin-left: 1%; padding-left:1%;'>
             <p>
             <?php
                 echo "Original post written by: " . $author->username;
@@ -149,7 +149,7 @@
             foreach($replies as $reply){
                 $author = new \app\models\User();
                 $author = $author->getById($reply->user_id);
-                echo '<div style="border:1px solid white; width:20%; white-space: nowrap; margin-left: 1%; padding-left:1%;">';
+                echo '<div style="border:1px solid #f1fa8c; width:20%; white-space: nowrap; margin-left: 1%; padding-left:1%;">';
                 echo '<p>Reply by: ' . "<a href='/Main/user/" . $author->user_id . "'>" . $author->username . "</a>";
                 // reply adte
                 echo ' on ' . $reply->created_at;
@@ -162,11 +162,11 @@
 
                 if(isset($_SESSION['user_id'])){
                     if($author->user_id == $_SESSION['user_id']){
-                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/deletereply/'.$reply->reply_id.'">Delete</a></button>';
+                        echo '<button style="margin-bottom: 2%; type="button" class="btn btn-outline-primary"><a style="padding-left: 1%;"href="'.BASE.'/Secure/deletereply/'.$reply->reply_id.'">Delete</a></button>';
                         echo ' ';
-                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/editreply/'.$reply->reply_id.'">Edit</a></button>';
+                        echo '<button style="margin-bottom: 2%;"type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Secure/editreply/'.$reply->reply_id.'">Edit</a></button>';
                     } else if($_SESSION['admin'] == true){
-                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Admin/deletereply/'.$reply->reply_id.'">Delete</a></button>';
+                        echo '<button style="margin-bottom: 2%;type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Admin/deletereply/'.$reply->reply_id.'">Delete</a></button>';
                     }
                 }
                 echo '</div>';

@@ -75,7 +75,7 @@ $topics = new \app\models\Topic();
 $topics = $topics->getAllTopics();
 //display all topics
 foreach($topics as $topic){
-    echo "<div style='border:1px solid black; width:400px; margin-left:1%; padding-left:1%;'>";
+    echo "<div style='border:1px solid #f1fa8c; width:400px; margin-left:1%; padding-left:1%;'>";
     echo '<br><a style="font-size: 30px;" href="'.BASE.'/Main/Topic/'.$topic['topic_id'].'">'.$topic['name'].'</a>';
     echo '<br><p>'.$topic['description'].'<br></p>';
 

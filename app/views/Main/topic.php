@@ -92,7 +92,7 @@
         foreach($pinnedposts as $post) {
             $user = new \app\models\User();
             $user = $user->getById($post->user_id);
-            echo "<div style='border:1px solid white; width:20%; white-space: nowrap; padding-left: 1%;'>";
+            echo "<div style='border:1px solid #f1fa8c; width:20%; white-space: nowrap; padding-left: 1%;'>";
             echo "<div style='float:left;'>";
             echo "</div>";
             echo '<h2><a href="'.BASE.'/Main/Post/'.$post->post_id.'">[PINNED] ' . $post->getTitle() . '</a><br></h2>';
@@ -104,7 +104,7 @@
         foreach($regularposts as $post){
             $user = new \app\models\User();
             $user = $user->getById($post->user_id);
-            echo "<div style='border:1px solid white; width:20%; white-space: nowrap; padding-left: 1%; margin-left: 1%;'>";
+            echo "<div style='border:1px solid #f1fa8c; width:20%; white-space: nowrap; padding-left: 1%; margin-left: 1%;'>";
             echo "<div style='float:left;'>";
             echo "</div>";
             echo '<h2><a href="'.BASE.'/Main/Post/'.$post->post_id.'">' . $post->getTitle() . '</a><br></h2>';
