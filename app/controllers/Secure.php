@@ -125,9 +125,9 @@ class Secure extends \app\core\Controller
                 $reply->content = $_POST['description'];
                 $reply->updated_at = date('Y-m-d H:i:s');
                 $reply->update();
-                header('Location: /Main/Post/'.$reply->post_id);
+                header('Location: /Main/Post/'.$reply->reply_id);
             } else {
-                $this->view('Secure/editReply', $reply->post_id);
+                $this->view('Secure/editReply', $reply->reply_id);
             }
         } else {
             header('Location: /Main/Post/'.$reply->post_id);
