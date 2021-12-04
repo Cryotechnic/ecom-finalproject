@@ -16,10 +16,15 @@
                     <li class="nav-item rounded">
                         <a class="nav-link active" aria-current="page" href="/Main/index"><i class="bi bi-house-fill me-2"></i>Home</a>
                     </li>
+                        <?php 
+                            $user = new \app\models\User();
+                            $user = $user->get($_SESSION['username']);
+                        ?>
                     <li class="nav-item dropdown rounded">
                         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-person-fill me-2"></i>Account</a>
                         <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                         <?php if(isset($_SESSION['user_id'])){
+                            echo "<li><a class='dropdown-item' href='/Main/user/".$user->user_id."'>Profile</a></li>";
                             echo "<li><a class='dropdown-item' href='/Main/logout'>Logout</a></li>";
                         } else {
                             echo "<li class='dropdown-item'><a href='/Main/login'>Login</a></li>";
