@@ -34,6 +34,11 @@ class Main extends \app\core\Controller
                 $_SESSION['username'] = $user->username;
                 $_SESSION['logged_in'] = true;
                 $_SESSION['user'] = $user;
+                if($user->type == 'admin') {
+                    $_SESSION['admin'] = true;
+                } else {
+                    $_SESSION['admin'] = false;
+                }
                 header('Location: /Main/index');
             }
         } else { 

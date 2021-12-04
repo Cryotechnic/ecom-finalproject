@@ -84,7 +84,7 @@ class Admin extends \app\core\Controller
         if ($user->type != 'admin'){
             $user->banned = 1;
             $user->update();
-            header('Location: /Admin/index/');
+            header('Location: /Admin/viewbans');
         }
     }
 
