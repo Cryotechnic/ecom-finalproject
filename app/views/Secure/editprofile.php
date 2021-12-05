@@ -32,6 +32,7 @@
 							<button type="submit" class="btn btn-primary btn-block" name="action" value="Update">Update Profile</button>
 
 							<div class="sign-up">
+								Want to change your password? <a href="/Secure/changepassword">Change Password</a><br>
 								Changed your mind? Go back by <a href="/Main/index">clicking here</a>
 							</div>
 						</form>

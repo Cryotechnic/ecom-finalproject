@@ -207,9 +207,8 @@ class User extends \app\core\Model
     public function updatePassword()
     {
         $this->password_hash = password_hash($this->password, PASSWORD_DEFAULT);
-        $sql = "UPDATE user SET username = :username, password_hash = :password_hash WHERE user_id = :user_id";
+        $sql = "UPDATE user SET password_hash = :password_hash WHERE user_id = :user_id";
         $stmt = self::$_connection->prepare($sql);
-        $stmt->bindParam(':username', $this->username);
         $stmt->bindParam(':password_hash', $this->password_hash);
         $stmt->bindParam(':user_id', $this->user_id);
         $stmt->execute();

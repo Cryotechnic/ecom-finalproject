@@ -169,4 +169,25 @@ class Secure extends \app\core\Controller
             $this->view('Secure/editProfile');
         }
     }
+
+    // change password
+    public function changePassword(){
+        if(isset($_POST['action'])){
+            $user = new \app\models\User();
+            $user = $user->getById($_SESSION['user_id']);
+            if(password_verify($_POST['password'], $user->password_hash)){
+                if($_POST['newpassword'] == $_POST['confirmpassword']){
+                    $user->password = $_POST['newpassword'];
+                    $user->updatePassword();
+                    header('Location: /Main/user/' . $_SESSION['user_id']);
+                } else {
+                    $this->view('Secure/changePassword', 'Passwords do not match');
+                }
+            } else {
+                $this->view('Secure/changePassword', 'Incorrect current password');
+            }
+        } else {
+            $this->view('Secure/changePassword');
+        }
+    }
 }
