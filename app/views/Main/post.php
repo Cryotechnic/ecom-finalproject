@@ -204,9 +204,9 @@
                         echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Admin/lockpost/'.$post->post_id.'">Lock post</a></button>';
                     }
                 } else if($post->locked == 1){
-                    echo 'This post is locked and not accepting more replies at this time';
+                    echo '<p>This post is locked and not accepting more replies at this time</p>';
                     if($_SESSION['admin'] == true){
-                        echo '<button type="button" class="btn btn-outline-primary"><br><a href="'.BASE.'/Admin/unlockpost/'.$post->post_id.'">Unlock post</a></button>';
+                        echo '<button type="button" class="btn btn-outline-primary"><a href="'.BASE.'/Admin/unlockpost/'.$post->post_id.'">Unlock post</a></button>';
                     }
                 } else {
                     echo 'You must be logged in to reply';

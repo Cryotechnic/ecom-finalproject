@@ -30,6 +30,24 @@ class Admin extends \app\core\Controller
         }
     }
 
+    // edit topic
+    public function editTopic($topic_id){
+        $topic = new \app\models\Topic();
+        $topic = $topic->getByTopicId($topic_id);
+        if(isset($_POST['action'])){
+            if(isset($_POST['title']) && isset($_POST['description'])){
+                $topic->name = $_POST['title'];
+                $topic->description = $_POST['description'];
+                $topic->update();
+                header('Location: /Main/index/');
+            } else {
+                $this->view('Admin/editTopic', $topic_id);
+            }
+        } else {
+            $this->view('Admin/editTopic', $topic_id);
+        }
+    }
+
     // delete a topic
     public function deleteTopic($topicId){
         $topic = new \app\models\Topic();

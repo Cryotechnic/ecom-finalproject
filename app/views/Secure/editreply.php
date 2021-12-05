@@ -20,10 +20,6 @@
 					<div class="card-text">
 						<form action='' method='post'>
 							<div class="form-group">
-								<label for="exampleInputEmail1">Reply Title</label>
-								<input type="text" class="form-control form-control-sm" id="exampleInputEmail1" aria-describedby="posttitle" name="title">
-							</div>
-							<div class="form-group">
 								<label for="exampleInputPassword1">Reply Content</label>
                                 <textarea type="text" class="form-control form-control-sm" id="exampleInputPassword1" name="description"><?= $reply->content?></textarea>
 							</div>

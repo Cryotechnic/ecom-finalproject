@@ -88,7 +88,8 @@ foreach($topics as $topic){
 
     if(isset($_SESSION['username'])){
         if($user->type == 'admin'){
-            echo '<a href="'.BASE.'/Admin/deleteTopic/'.$topic['topic_id'].'">delete</a><br>';
+            echo '<a href="'.BASE.'/Admin/editTopic/'.$topic['topic_id'].'">Edit</a><br>';
+            echo '<a href="'.BASE.'/Admin/deleteTopic/'.$topic['topic_id'].'">Delete</a><br>';
         }
     }
     echo "</div><br>";
