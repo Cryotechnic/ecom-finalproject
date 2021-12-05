@@ -85,7 +85,7 @@
                         }
                         if($_SESSION['admin'] == true){
                             echo "<a class='empty' href='/Admin/banUser/" . $user->user_id . "'><button type='button' class='btn btn-outline-primary'>Ban User</button></a><br><br>";
-                            echo "<a href='/Admin/banUser/".$user->user_id."'>Ban User</a>";
+                            // echo "<a href='/Admin/banUser/".$user->user_id."'>Ban User</a>";
                         }
                     }
 
