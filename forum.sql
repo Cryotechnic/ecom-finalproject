@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 02, 2021 at 02:26 AM
+-- Generation Time: Dec 07, 2021 at 04:09 PM
 -- Server version: 10.4.20-MariaDB
 -- PHP Version: 8.0.9
 
@@ -100,6 +100,13 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
+-- Dumping data for table `user`
+--
+
+INSERT INTO `user` (`user_id`, `username`, `password_hash`, `email`, `type`, `banned`, `location`, `dob`, `bio`) VALUES
+(1, 'admin', '$2y$10$QHvqsiz89SuXnpKXQzzeROI.ZI2Lz5CXMQ5hl0Qgj.eHYVyiYJGVa', '', 'admin', 0, '', '0000-00-00', '');
+
+--
 -- Indexes for dumped tables
 --
 
@@ -164,7 +171,7 @@ ALTER TABLE `topic`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
